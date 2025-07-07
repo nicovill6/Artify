@@ -17,4 +17,4 @@ pylint-celery = "*"
 python_version = "3.13"
 
 [scripts]
-mpDjangoIntroduccion = "python mpDjangoIntroduccion/manage.py runserver"
+Artify = "python Artify/manage.py runserver"
