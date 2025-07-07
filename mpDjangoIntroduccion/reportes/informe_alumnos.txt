@@ -1,0 +1,17 @@
+Nombre: Lucas Medina - Inscripciones: 2 - Edad: 14 
+Nombre: Emilia Vargas - Inscripciones: 2 - Edad: 12 
+Nombre: Francisco Soto - Inscripciones: 2 - Edad: 27 
+Nombre: Mia Cabrera - Inscripciones: 1 - Edad: 20 
+Nombre: Bautista Romero - Inscripciones: 1 - Edad: 17 
+Nombre: Martina Díaz - Inscripciones: 3 - Edad: 15 
+Nombre: Julián Castro - Inscripciones: 0 - Edad: 24 
+Nombre: Isabella López - Inscripciones: 1 - Edad: 18 
+Nombre: Santino Morales - Inscripciones: 1 - Edad: 13 
+Nombre: Camila Torres - Inscripciones: 2 - Edad: 26 
+Nombre: Benjamín Ríos - Inscripciones: 0 - Edad: 9 
+Nombre: Valentina Herrera - Inscripciones: 1 - Edad: 16 
+Nombre: Thiago Fernández - Inscripciones: 3 - Edad: 10 
+Nombre: Sofía Ramírez - Inscripciones: 1 - Edad: 22 
+Nombre: Mateo González - Inscripciones: 0 - Edad: 11 
+
+ El promedio de edad de los alumnos es de: 16.93

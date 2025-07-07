@@ -1,0 +1,234 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %} Lista de Alumnos {% endblock %}
+
+{% block content %}
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+  .alumnos-section {
+    max-width: 1400px;
+    margin: 50px auto;
+    padding: 0 20px;
+    color: white;
+  }
+
+  h1.alumnos-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+  }
+
+  .search-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+    max-width: 95%;
+  }
+
+  .search-container form {
+    display: flex;
+    align-items: center;
+    max-width: 800px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+
+  #buscar-alumno {
+    flex: 1;
+    padding: 10px 14px;
+    border: none;
+    font-size: 1rem;
+    color: #000;
+    min-width: 150px;
+  }
+
+  #buscar-alumno:focus {
+    outline: none;
+  }
+
+  .search-container button {
+    background: rgba(255, 255, 255, 0.12);
+    border: none;
+    padding: 10px 15px;
+    color: white;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background 0.2s ease;
+  }
+
+  .search-container button:hover {
+    background: #ff00ee;
+  }
+
+  .btn-detalle,
+  .btn-volver {
+    background-color: #ff00ee;
+    color: white !important;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border-radius: 10px;
+    border: 1px solid white;
+    cursor: pointer;
+    text-decoration: none !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: all 0.3s ease-in-out;
+    display: inline-block;
+  }
+
+  .btn-detalle:hover,
+  .btn-volver:hover {
+    background: rgba(255, 255, 255, 0.12);
+    transform: scale(1.05);
+    color: white !important;
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 0, 242, 0.703) rgba(255,255,255,0.15);
+  }
+
+  .table-wrapper::-webkit-scrollbar {
+    height: 10px;
+  }
+
+  .table-wrapper::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+  }
+
+  .table-wrapper::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, rgba(255, 0, 242, 0.6), rgba(115, 0, 255, 0.6));
+    border-radius: 10px;
+  }
+
+  table.table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 14px;
+    min-width: 600px;
+  }
+
+  table thead {
+    background: rgba(255, 0, 242, 0.436);
+    font-family: 'Poppins', sans-serif;
+  }
+
+  table th {
+    text-align: center;
+    font-size: 1rem;
+    padding: 18px 8px;
+    color: white;
+    vertical-align: middle;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+  }
+
+  table td {
+    text-align: center;
+    padding: 22px 10px;
+    background-color: rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    vertical-align: middle;
+    transition: all 0.2s ease;
+  }
+
+  table tbody tr:hover td {
+    transform: scale(1.02);
+    background-color: rgba(255, 255, 255, 0.12);
+  }
+
+  .table img {
+    width: 65px;
+    height: 65px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  }
+
+  .volver-wrapper {
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  @media (max-width: 768px) {
+    .search-container {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .search-container form {
+      width: 100%;
+    }
+
+    .search-container a {
+      width: 100%;
+      text-align: center;
+    }
+
+    table.table {
+      font-size: 0.9rem;
+    }
+
+    .volver-wrapper {
+      margin-top: 30px;
+    }
+  }
+</style>
+
+<div class="alumnos-section">
+  <h1 class="alumnos-title">LISTADO DE ALUMNOS</h1>
+
+  <div class="search-container">
+    <form method="get">
+      <input type="text" name="q" id="buscar-alumno" placeholder="Buscar por nombre">
+      <button type="submit"><i class="fas fa-search"></i></button>
+    </form>
+  </div>
+
+  <div class="table-wrapper">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>FOTO</th>
+          <th>NOMBRE</th>
+          <th>EMAIL</th>
+          <th>FECHA DE INSCRIPCIÓN</th>
+          <th>DETALLES</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for inscripcion in inscripciones %}
+          <tr>
+            <td><img src="{{ inscripcion.alumnos.foto.url }}" alt="{{ inscripcion.alumnos.nombre }}"></td>
+            <td>{{ inscripcion.alumnos.nombre }}</td>
+            <td>{{ inscripcion.alumnos.email }}</td>
+            <td>{{ inscripcion.fecha_inscripcion|date:"d/m/Y" }}</td>
+            <td>
+              <a href="{% url 'alumno_detail' inscripcion.alumnos.id %}?curso_id={{ inscripcion.curso.id }}" class="btn-detalle">
+                Ver Detalles
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="volver-wrapper">
+    <a href="{% url 'curso_list' %}" class="btn-volver">
+      Volver a Cursos
+    </a>
+  </div>
+</div>
+{% endblock %}

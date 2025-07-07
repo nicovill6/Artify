@@ -1,0 +1,215 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %} Cursos {% endblock %}
+
+{% block content %}
+<style>
+/* Sección de cursos */
+main {
+    margin-bottom: 50px; 
+}
+
+.contentCursos h1 {
+    margin-top: 50px;
+    font-size: 3rem;
+    text-align: center;
+    font-weight: 700;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.781);
+    color: #ffffff;
+}
+
+.contentCursos p {
+    font-size: 1.2rem;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    font-weight: 500;
+    color: white;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.374);
+}
+
+/* Cards */
+.cardCurso {
+    width: 100%;
+    max-width: 400px;
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    text-align: center;
+    padding: 20px;
+    backdrop-filter: blur(8px);
+    transition: transform 0.3s ease-in-out;
+}
+
+.cardCurso:hover {
+    transform: scale(1.05);
+}
+
+/* Imagen */
+.card-img-top {
+    max-height: 250px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+/* Título sin subrayado */
+.card-titleCurso {
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.781);
+    color: white;
+    text-decoration: none;
+}
+
+/* Precio */
+.card-precio {
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: left;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.781);
+}
+
+/* Botón rosa con borde blanco */
+.btn-rosa {
+    background-color: #ff00ee;
+    color: #ffffff;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 2px solid white;
+    transition: background 0.3s ease-in-out;
+}
+
+.btn-rosa:hover {
+    background-color: #15aefe;
+    color: white;
+    border: 2px solid white;
+}
+
+/* Modal */
+.modal-content {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(12px);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* Header de la modal */
+.modal-header {
+    background: rgba(255, 0, 242, 0.5);
+    color: #ffffff;
+    border-radius: 15px 15px 0 0;
+    text-align: center;
+}
+
+/* Botón de cierre */
+.btn-close {
+    color: #ffffff;
+    font-size: 1.5rem;
+}
+
+/* Contenido de la modal */
+.modal-body {
+    text-align: center;
+    padding: 20px;
+}
+
+/* Imágenes dentro de la modal */
+.modal-images {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+/* Ajuste de imágenes */
+.modal-image {
+    width: 40%;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Subtítulo y descripción dentro de la modal */
+.modal-subtitle {
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin-top: 20px;
+    color: white;
+}
+
+.modal-text {
+    color: white;
+    font-size: 1.2rem;
+    text-align: left;
+    padding: 15px;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .contentCursos h1 {
+        font-size: 2.5rem;
+    }
+
+    .cardCurso {
+        max-width: 100%;
+    }
+
+    .modal-images img {
+        width: 100%;
+    }
+}
+</style>
+
+<main class="main">
+    <div class="contentCursos">
+        <h1>CURSOS</h1>
+        <p>Descubre nuestros cursos y amplía tus conocimientos en diversas áreas. Explora nuevas pasiones y desarrolla habilidades prácticas para potenciar tu crecimiento personal y profesional. Nuestros cursos están diseñados para inspirarte y ayudarte a alcanzar tus objetivos, sin importar tu nivel de experiencia o interés.</p>
+    </div>
+    
+    <div class="container">
+        <div class="row justify-content-center" style="margin-top: 50px; margin-bottom: 50px;">
+            {% for curso in cursos %}
+                <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center">
+                    <div class="cardCurso h-100" style="margin-bottom: 40px;">
+                        <img src="{{ curso.imagen_1.url }}" class="card-img-top" alt="Imagen de {{ curso.nombre }}">
+                        <div class="card-body">
+                            <h2 class="card-titleCurso">{{ curso.nombre }}</h2>
+                            <p class="card-precio">Precio: ${{ curso.precio }}</p>
+                            <button type="button" class="btn btn-rosa" data-bs-toggle="modal" data-bs-target="#detalleCursoModal{{ curso.id }}">
+                                Ver detalles
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+
+{% for curso in cursos %}
+<!-- Modal de detalles del curso -->
+<div class="modal fade" id="detalleCursoModal{{ curso.id }}" tabindex="-1" aria-labelledby="detalleCursoLabel{{ curso.id }}" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title text-center">{{ curso.nombre }}</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+    <div class="modal-body">
+        <div class="modal-images d-flex flex-wrap justify-content-center gap-3">
+            <img src="{{ curso.imagen_2.url }}" class="img-fluid rounded modal-image col-12 col-md-5" alt="Imagen2">
+            <img src="{{ curso.imagen_3.url }}" class="img-fluid rounded modal-image col-12 col-md-5" alt="Imagen3">
+        </div>
+        <h4 class="modal-subtitle">Descripción del Curso:</h4>
+        <p class="modal-text">{{ curso.descripcion }}</p>
+    </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,162 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %} Perfil de {{ instructor.nombre }} {% endblock %}
+
+{% block content %}
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700;800&display=swap');
+
+  .contenedor {
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+
+  .content-header {
+    background: linear-gradient(90deg, rgba(255, 0, 242, 0.6), rgba(115, 0, 255, 0.6));
+    color: #ffffff;
+    border-radius: 15px 15px 0 0;
+    text-align: center;
+    position: relative;
+    padding: 1.5rem;
+    box-shadow: inset 0 -2px 6px rgba(0, 0, 0, 0.2);
+  }
+
+  .btn-close {
+    color: #ffffff;
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+  }
+
+  .btn-close:hover {
+    transform: scale(1.2);
+  }
+
+  .content-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: rgb(255, 255, 255);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.75);
+    margin: 0 auto;
+  }
+
+  .card {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: rgba(12, 12, 12, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    border: none;
+    backdrop-filter: blur(8px);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .card:hover {
+    transform: scale(1.01);
+  }
+
+  .card-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 30px;
+    align-items: stretch;
+  }
+
+  .card-img-col {
+    flex: 1 1 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .card-img-top {
+    width: 100%;
+    border-radius: 15px;
+    object-fit: cover;
+    max-height: 340px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease;
+  }
+
+  .card-img-top:hover {
+    transform: scale(1.03);
+  }
+
+  .card-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #ffffff;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.75);
+    margin: 0 auto;
+  }
+
+  .card-body {
+    flex: 2 1 500px;
+    color: white;
+  }
+
+  .modal-subtitle {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .modal-text {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .text-white {
+    color: #e6e6e6;
+  }
+
+  @media (max-width: 768px) {
+    .card-content {
+      flex-direction: column;
+      padding: 20px;
+    }
+
+    .card {
+      max-width: 95%;
+    }
+
+    .card-img-col,
+    .card-body {
+      flex: 100%;
+    }
+  }
+</style>
+
+<div class="contenedor d-flex justify-content-center align-items-center" style="min-height: 85vh;">
+  <div class="card">
+    <header class="content-header d-flex justify-content-between align-items-center px-4">
+      <h3 class="content-title flex-grow-1">PERFIL DEL INSTRUCTOR</h3>
+      <a href="{% url 'instructor_list' %}" class="btn-close" aria-label="Cerrar"></a>
+    </header>
+    <div class="card-content">
+      <div class="card-img-col">
+        <h2 class="card-title">{{ instructor.nombre }}</h2>
+        <img src="{{ instructor.foto.url }}" class="card-img-top" alt="Imagen de {{ instructor.nombre }}">
+      </div>
+      <div class="card-body">
+        <h4 class="modal-subtitle">Biografía</h4>
+        <p class="modal-text">{{ instructor.biografia }}</p>
+
+        <h4 class="modal-subtitle">Curso que dicta</h4>
+        <p class="text-white">{{ instructor.cursos.nombre }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

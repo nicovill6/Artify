@@ -1,0 +1,82 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Eliminar Curso de {{cursos.nombre}} {% endblock %}
+
+{% block content %}
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 65vh;
+    padding: 20px;
+    font-family: 'Poppins', sans-serif;
+    color: #fff;
+    text-align: center;
+  }
+
+  h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+  }
+
+  h2 strong {
+    color: #ff00ee;
+  }
+
+  .btn-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .btn-danger,
+  .btn-secondary {
+    padding: 12px 28px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    border: 1px solid white;
+    text-decoration: none;
+    color: white;
+    transition: all 0.3s ease;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  }
+
+  .btn-danger {
+    background-color: #ff00ee;
+  }
+
+  .btn-danger:hover {
+    background-color: #c400bd;
+    transform: scale(1.05);
+  }
+
+  .btn-secondary {
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+    transform: scale(1.05);
+  }
+</style>
+
+<main>
+  <h2>¿Estás seguro de que deseas eliminar el curso <strong>{{ cursos.nombre }}</strong>?</h2>
+  <form method="post">
+    {% csrf_token %}
+    <div class="btn-container">
+      <button type="submit" class="btn btn-danger">ELIMINAR</button>
+      <a href="{% url 'curso_list' %}" class="btn btn-secondary">CANCELAR</a>
+    </div>
+  </form>
+</main>
+{% endblock %}

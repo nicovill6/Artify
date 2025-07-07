@@ -1,0 +1,170 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %} {{ alumno.nombre }} {% endblock %}
+
+{% block content %}
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+  .alumno-detalle {
+    max-width: 800px;
+    margin: 60px auto;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    color: white;
+    overflow: hidden;
+  }
+
+  .alumno-header {
+    background: linear-gradient(90deg, rgba(255, 0, 242, 0.6), rgba(115, 0, 255, 0.6));
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    justify-content: space-between;
+    gap: 20px;
+    position: relative;
+  }
+
+  .alumno-header-left {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  margin-left: 40px;
+}
+
+
+  .alumno-foto {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 14px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+  }
+
+  .alumno-nombre {
+    font-size: 3rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin: 50px;
+    color: #ffffff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+  }
+
+  .btn-close {
+    font-size: 1.8rem;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    line-height: 1;
+    padding: 0.5rem;
+    transition: transform 0.2s ease;
+  }
+
+  .btn-close:hover {
+    transform: scale(1.2);
+    color: white;
+  }
+
+  .alumno-body {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .dato {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 14px 20px;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+  }
+
+  .dato:hover {
+    background: rgba(255, 255, 255, 0.14);
+  }
+
+  .dato label {
+    font-weight: 600;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.781);
+    flex: 1;
+  }
+
+  .dato span {
+    flex: 2;
+    text-align: right;
+    font-weight: 400;
+    color: #000000;
+  }
+
+  @media (max-width: 600px) {
+    .alumno-detalle {
+      margin: 30px 20px;
+    }
+
+    .alumno-header {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .alumno-header-left {
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .dato {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .dato span {
+      text-align: left;
+      margin-top: 5px;
+    }
+
+    .btn-close {
+      position: absolute;
+      top: 1rem;
+      right: 1.2rem;
+    }
+  }
+</style>
+
+<div class="alumno-detalle">
+  <div class="alumno-header">
+    <div class="alumno-header-left">
+      <img src="{{ alumno.foto.url }}" alt="Foto de {{ alumno.nombre }}" class="alumno-foto">
+      <h1 class="alumno-nombre">{{ alumno.nombre }}</h1>
+    </div>
+    {% if curso_id %}
+        <a href="{% url 'alumno_list' curso_id %}" class="btn-close" aria-label="Cerrar"></a>
+    {% else %}
+        <a href="{% url 'curso_list' %}" class="btn-close" aria-label="Cerrar"></a>  {# Fallback #}
+    {% endif %}
+  </div>
+  <div class="alumno-body">
+    <div class="dato">
+      <label>FECHA DE NACIMIENTO:</label>
+      <span>{{ alumno.fecha_nacimiento|date:"d/m/Y"  }}</span>
+    </div>
+    <div class="dato">
+      <label>EMAIL:</label>
+      <span>{{ alumno.email }}</span>
+    </div>
+    <div class="dato">
+      <label>TELÉFONO:</label>
+      <span>{{ alumno.telefono }}</span>
+    </div>
+  </div>
+</div>
+{% endblock %}

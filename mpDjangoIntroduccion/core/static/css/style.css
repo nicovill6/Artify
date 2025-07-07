@@ -1,0 +1,345 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url(../img/fondo.png);
+    background-attachment: fixed;
+    background-position: center;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header */
+.Navegacion {
+    background-color: rgba(0, 0, 0, 0.337);
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 50px;
+}
+
+.Navegacion h1 {
+    font-weight: bold;
+    font-size: 3.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+}
+
+.logo {
+    width: 100px; 
+    height: auto;
+}
+
+.navbar-nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.navbar-nav .nav-link, .nav-links .nav-link  {
+    font-size: 1.3rem;
+    text-decoration: none;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 20px;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbar-nav .nav-link i {
+    font-size: 1rem;
+    transition: transform 0.3s ease-in-out;
+}
+
+.navbar-nav .nav-link:hover i {
+    transform: scale(1.2);
+}
+
+.navbar-nav .nav-link:hover {
+    border-radius: 50px;
+    border: 1px solid white;
+    background-color: transparent;
+    color: white;
+    border-radius: 15px;
+}
+
+
+.navbar-nav .nav-link.active {
+    background-color: #ff00ee; 
+    color: white;
+    border-radius: 50px;
+    padding: 14px 28px;
+    border: 1px solid white;
+    border-radius: 15px;
+}
+
+/* BOTÓN MENÚ PARA MÓVILES */
+.navbar-toggler {
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 3px;
+    transition: 0.3s;
+}
+
+.navbar-toggler:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.offcanvas {
+    background-image: url(../img/fondo.png);
+    width: 260px;
+    border-left: 2px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.4s ease-in-out;
+}
+
+.offcanvas-header h5{
+    font-weight: bold;
+}
+
+.offcanvas.show {
+    transform: translateX(0);
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+}
+
+.nav-link li {
+    margin-left: 15px;
+    margin-right: 7px;
+}
+  
+.nav-links .nav-link i {
+    font-size: 1.5rem;
+    transition: transform 0.3s ease-in-out;
+}
+
+.nav-links .nav-link:hover {
+    background-color: #15aefe;
+    border-radius: 50px;
+    color: white;
+    
+}
+
+.nav-links .nav-link:hover i {
+    transform: scale(1.2);
+}
+
+.btn-close {
+    filter: invert(1);
+    transition: 0.3s;
+}
+
+.btn-close:hover {
+    transform: scale(1.2);
+}
+
+/* FOOTER */
+.footer {
+    background-color: rgba(0, 0, 0, 0.391);
+    height: auto;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 1200px;
+    width: 80%;
+    text-align: left;
+    gap: 30px;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 15px;
+}
+
+.footer-column {
+    flex: 1;
+    min-width: 280px;
+}
+
+.logo-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    height: 100%; 
+    text-align: center;
+}
+
+.footer-marca {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    color: #ffffff;
+    margin-top: 5px;
+}
+
+.footer-title {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    color: white;
+    font-weight: bold;
+}
+
+.footer-column a {
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+    color: #fa00e9;
+}
+
+.footer-column a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+.footer-column i {
+    font-size: 1.4rem;
+    margin-right: 8px;
+    color: #ffffff;
+    transition: color 0.3s ease-in-out;
+}
+
+.footer-column i:hover {
+    color: white;
+}
+
+
+/* Estilos base.html - Flexibles en todos los dispositivos */
+
+@media (max-width: 375px) {
+    .Navegacion {
+        flex-direction: column;
+        align-items: center;
+        padding: 8px;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+
+    .footer-column {
+        text-align: left;
+    }
+}
+
+@media (min-width: 376px) and (max-width: 576px) {
+    .Navegacion {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+@media (min-width: 577px) and (max-width: 1024px) {
+    .Navegacion {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .footer-container {
+        flex-direction: row;
+        justify-content: space-around;
+    }
+}
+
+@media (min-width: 1025px) {
+    .Navegacion {
+        padding: 20px;
+    }
+
+    .footer-container {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+        
+/*instructores*/
+
+.instructor-box {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    color: white;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+.container h2{
+    font-weight: bold;
+}
+/*home*/
+
+    .mainHome {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .col1 {
+        flex: 1;
+        padding: 20px;
+    }
+
+    .col1 h1 {
+        font-size: 3.5rem;
+        margin-bottom: 10px;
+        color: #ffffff;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        font-weight: 700;
+        text-align: center;
+    }
+
+    .col1 p {
+        font-weight: 500;
+        font-size: 1.2rem;
+        max-width: 800px;
+        line-height: 1.5;
+        color: #ffffff;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    }
+
+    .col2 {
+        flex: 1;
+        text-align: center;
+    }
+
+    .img-artify {
+        max-width: 100%;
+        height: auto;
+    }
+

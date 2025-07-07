@@ -1,0 +1,168 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %} Instructores{% endblock %}
+
+{% block content %}
+<style>
+/* Sección de instructores */
+.container h2 {
+    font-size: 3rem;
+    text-align: center;
+    font-weight: 700;
+    color: white;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.781);
+}
+
+/* Cards de instructores */
+.instructor-box {
+    width: 100%;
+    max-width: 400px;
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    text-align: center;
+    padding: 20px;
+    backdrop-filter: blur(8px);
+    transition: transform 0.3s ease-in-out;
+}
+
+.instructor-box:hover {
+    transform: scale(1.05);
+}
+
+/* Imagen */
+.img-fluid {
+    max-height: 250px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+/* Nombre del instructor */
+h6 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.781);
+    color: #ffffff;
+    text-decoration: none; /* Sin subrayado */
+}
+
+/* Botón rosa con borde blanco */
+.btn-rosa {
+    background-color: #ff00ee;
+    color: #ffffff;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 2px solid white; 
+    transition: background 0.3s ease-in-out;
+}
+
+.btn-rosa:hover {
+    background-color: #15aefe;
+    color: white;
+    border: 2px solid white;
+}
+
+/* Modal */
+.modal-content {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(12px);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* Header de la modal */
+.modal-header {
+    background: rgba(255, 0, 242, 0.5);
+    color: #ffffff;
+    border-radius: 15px 15px 0 0;
+    text-align: center;
+}
+
+/* Botón de cierre */
+.btn-close {
+    color: #ffffff;
+    font-size: 1.5rem;
+}
+
+/* Contenido de la modal */
+.modal-body {
+    text-align: center;
+    padding: 20px;
+}
+
+.modal-title{
+  font-weight: bold;
+}
+/* Subtítulo y descripción */
+.modal-subtitle {
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin-top: 20px;
+    color: white;
+}
+
+.modal-text {
+    color: white;
+    font-size: 1.2rem;
+    text-align: left;
+    padding: 15px;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    h2 {
+        font-size: 2.5rem;
+    }
+
+    .instructor-box {
+        max-width: 100%;
+    }
+}
+</style>
+
+<div class="container py-5">
+  <h2 class="text-center mb-5">NUESTRO EQUIPO DE INSTRUCTORES</h2>
+  
+  <div class="row justify-content-center g-4">
+    {% for instructor in instructores %}
+      <div class="col-12 col-lg-3">
+        <div class="instructor-box text-center p-3">
+          <div class="mb-4">
+            <img src="{{ instructor.foto.url }}" class="img-fluid rounded-4 mb-2" alt="{{ instructor.nombre }}">
+            <h6>{{ instructor.nombre|upper }}</h6>
+            <button type="button" class="btn btn-rosa" data-bs-toggle="modal" data-bs-target="#detalleInstructorModal{{ instructor.id }}">
+              Ver Perfil
+            </button>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Modales dinámicos -->
+{% for instructor in instructores %}
+<div class="modal fade" id="detalleInstructorModal{{ instructor.id }}" tabindex="-1" aria-labelledby="detalleInstructorLabel{{ instructor.id }}" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">PERFIL DEL INSTRUCTOR</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <h4 class="modal-subtitle">Biografía:</h4>
+        <p class="modal-text">{{ instructor.biografia }}</p>
+
+        <h4 class="modal-subtitle">Curso que dicta:</h4>
+        <p class="text-white">{{ instructor.cursos.nombre }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+{% endblock %}

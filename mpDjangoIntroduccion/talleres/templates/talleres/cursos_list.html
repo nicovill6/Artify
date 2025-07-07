@@ -1,0 +1,205 @@
+{% extends 'core/base.html' %}
+{% block title %} Lista de Cursos {% endblock %}
+
+{% block content %}
+<style>
+main {
+  margin-bottom: 50px;
+}
+
+main h2 {
+  margin-top: 45px;
+  font-size: 3rem;
+  text-align: center;
+  font-weight: 700;
+  color: white;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.781);
+}
+
+.search-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto;
+  max-width: 95%;
+}
+
+.search-container form {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  max-width: 750px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+#buscar-curso {
+  flex: 1;
+  padding: 8px 12px;
+  border: none;
+  font-size: 1rem;
+  min-width: 150px;
+  color: #000;
+}
+
+#buscar-curso:focus {
+  outline: none;
+}
+
+.search-container button {
+  background: rgba(255, 255, 255, 0.12);
+  border: none;
+  padding: 8px 14px;
+  color: white;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: background 0.2s ease;
+}
+
+.search-container button:hover {
+  background: #ff00ee;
+}
+
+.search-container a {
+  white-space: nowrap;
+  font-size: 0.95rem;
+  padding: 8px 12px;
+  border-radius: 8px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid white;
+  color: white;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.search-container a:hover {
+  background: #ff00ee;
+  transform: scale(1.05);
+}
+
+.cardCurso {
+  width: 100%;
+  max-width: 400px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  padding: 20px;
+  backdrop-filter: blur(8px);
+  transition: transform 0.3s ease-in-out;
+}
+
+.cardCurso:hover {
+  transform: scale(1.05);
+}
+
+.card-img-top {
+  max-height: 250px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.card-titleCurso {
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-align: center;
+  margin-top: auto;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.781);
+  color: white;
+  text-decoration: none;
+}
+
+.card-precio {
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: left;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.781);
+}
+
+.btn-card {
+  background: rgba(21, 172, 254, 0.742);
+  color: white;
+  padding: 10px 15px;
+  font-size: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  border: 1px solid white;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: background 0.3s ease-in-out;
+}
+
+.btn-card:hover {
+  background: linear-gradient(90deg, rgb(255, 0, 242), rgba(0, 179, 255, 0.986));
+  color: white;
+  transform: scale(1.05);
+  border: 1px solid white;
+}
+
+@media (max-width: 768px) {
+  .cardCurso {
+    max-width: 100%;
+  }
+
+  .search-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-container form {
+    width: 100%;
+  }
+
+  .search-container a {
+    width: 100%;
+    font-size: 1rem;
+  }
+}
+</style>
+
+<main class="main">
+  <h2 class="text-center mb-5">LISTA DE CURSOS</h2>
+  <div class="search-container">
+    <form method="get">
+      <input type="text" name="q" id="buscar-curso" placeholder="Buscar por nombre">
+      <button type="submit"><i class="fas fa-search"></i></button>
+    </form>
+    <a href="{% url 'curso_create' %}">
+      <i class="fas fa-plus"></i> Agregar Curso
+    </a>
+    <a href="{% url 'descargar_cursos' %}" download>
+      <i class="fas fa-download"></i> Informe de cursos 
+    </a>
+    <a href="{% url 'descargar_alumnos' %}" download>
+      <i class="fas fa-download"></i> Informe de alumnos
+    </a>
+  </div>
+
+  <div class="container">
+    <div class="row justify-content-center" style="margin-top: 10px; margin-bottom: 50px;">
+      {% for curso in cursos %}
+        <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center">
+          <div class="cardCurso h-100" style="margin-bottom: 40px;">
+            <img src="{{ curso.imagen_1.url }}" class="card-img-top" alt="Imagen de {{ curso.nombre }}">
+            <div class="card-body">
+              <h2 class="card-titleCurso">{{ curso.nombre }}</h2>
+              <p class="card-precio">Precio: ${{ curso.precio }}</p>
+              <a href="{% url 'curso_detail' curso.id %}" class="btn btn-card">Ver detalles</a>
+              <a href="{% url 'curso_update' curso.pk %}" class="btn btn-card">Editar</a>
+              <a href="{% url 'curso_delete' curso.pk %}" class="btn btn-card">Eliminar</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</main>
+{% endblock %}

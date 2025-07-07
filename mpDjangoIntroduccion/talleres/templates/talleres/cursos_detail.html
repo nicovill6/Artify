@@ -1,0 +1,183 @@
+{% extends 'core/base.html' %}
+{% block title %}Detalle de {{ curso.nombre }}{% endblock %}
+
+{% block content %}
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700;800&display=swap');
+
+  .contenedor {
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+
+  .content-header {
+    width: 100%;
+    background: linear-gradient(90deg, rgba(255, 0, 242, 0.6), rgba(115, 0, 255, 0.6));
+    color: #ffffff;
+    border-radius: 15px 15px 0 0;
+    text-align: center;
+    padding: 1.5rem;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: inset 0 -2px 6px rgba(0, 0, 0, 0.2);
+  }
+
+  .btn-close {
+    color: #ffffff;
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+  }
+
+  .btn-close:hover {
+    transform: scale(1.2);
+  }
+
+  .content-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin: 0;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.75);
+  }
+
+  .card {
+    width: 1000px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.12);
+    color: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    border: none;
+    transition: transform 0.3s ease-in-out;
+    backdrop-filter: blur(8px);
+  }
+
+  .card:hover {
+    transform: scale(1.01);
+  }
+
+  .modal-images {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    padding: 30px;
+  }
+
+  .modal-image {
+    border-radius: 12px;
+    max-height: 260px;
+    object-fit: cover;
+    width: 100%;
+    max-width: 440px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease;
+  }
+
+  .modal-image:hover {
+    transform: scale(1.03);
+  }
+
+  .card-body {
+    padding: 0 30px 30px;
+  }
+
+  .card-title {
+    font-size: 3rem;
+    font-weight: 800;
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.75);
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .modal-subtitle {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 8px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.75);
+    padding: 0 25px;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .modal-text {
+    font-size: 1.2rem;
+    color: #f1f1f1;
+    text-align: justify;
+    text-wrap: pretty;
+    padding: 0 25px;
+  }
+
+  .btn-card {
+    background: rgb(255, 0, 221);
+    color: white;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    border: 1px solid white;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    transition: background 0.3s ease-in-out;
+  }
+
+  .btn-card:hover {
+    background-color: transparent;
+    color: white;
+    transform: scale(1.05);
+    border: 1px solid white;
+  }
+
+  @media (max-width: 768px) {
+    .modal-images {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .card {
+      width: 90%;
+    }
+
+    .modal-image {
+      max-height: 240px;
+    }
+
+    .content-title {
+      font-size: 1.6rem;
+    }
+  }
+</style>
+
+<div class="contenedor d-flex justify-content-center align-items-center" style="min-height: 85vh;">
+  <div class="card">
+    <div class="content-header d-flex justify-content-between align-items-center px-4">
+      <h3 class="content-title flex-grow-1">DETALLE DEL CURSO</h3>
+      <a href="{% url 'curso_list' %}" class="btn-close" aria-label="Cerrar"></a>
+    </div>
+
+    <div class="modal-images">
+      {% if curso.imagen_2 %}
+        <img src="{{ curso.imagen_2.url }}" class="modal-image" alt="Imagen 2 del curso">
+      {% endif %}
+      {% if curso.imagen_3 %}
+        <img src="{{ curso.imagen_3.url }}" class="modal-image" alt="Imagen 3 del curso">
+      {% endif %}
+    </div>
+
+    <div class="card-body">
+      <h2 class="card-title">{{ curso.nombre }}</h2>
+      <h3 class="modal-subtitle">Descripción del Curso</h3>
+      <p class="modal-text">
+        {{ curso.descripcion }}
+      </p>
+      <div class="text-center mt-4">
+        <a href="{% url 'inscripcion_create' curso.id %}" class="btn btn-card">Realizar Inscripción</a>
+        <a href="{% url 'alumno_list' curso.id %}" class="btn btn-card">Ver lista de alumnos</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,10 @@
+Curso: MUSICA - Alumnos total: 6 - Calificacion promedio: 3.83 
+ Curso: ESCULTURA - Alumnos total: 2 - Calificacion promedio: 4.00 
+ Curso: DIBUJO Y PINTURA - Alumnos total: 2 - Calificacion promedio: 4.00 
+ Curso: ESCRITURA CREATIVA - Alumnos total: 2 - Calificacion promedio: 3.50 
+ Curso: BAILE- RITMO LATINO - Alumnos total: 2 - Calificacion promedio: 5.00 
+ Curso: DISEÑO DIGITAL - Alumnos total: 2 - Calificacion promedio: 3.50 
+ Curso: CANTO - Alumnos total: 1 - Calificacion promedio: 5.00 
+ Curso: TEATRO - Alumnos total: 1 - Calificacion promedio: 2.00 
+ Curso: FOTOGRAFÍA - Alumnos total: 2 - Calificacion promedio: 2.50 
+ 
