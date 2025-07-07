@@ -1,4 +1,4 @@
-# mp-django-introduccion
+# Artify
 
 
 
